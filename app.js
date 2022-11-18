@@ -2,6 +2,7 @@ const express=require("express");
 const cors=require("cors");
 const dotenv=require("dotenv");
 const userRouter=require("./routers/userRouter");
+const cookieParser=require("cookie-parser");
 
 dotenv.config({path:"./.env"})
 
@@ -16,6 +17,7 @@ const corsOptions={
 //MIDDLEWARES
 app.use(express.json());
 app.use(cors(corsOptions));
+app.use(cookieParser());
 
 app.get("/",(req,res)=>{
     console.log("Getting");
