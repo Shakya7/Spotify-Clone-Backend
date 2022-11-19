@@ -15,11 +15,6 @@ const userSchema=new mongoose.Schema({
         validate:[validator.isEmail,"Please enter a valid email id..."],
         unique:[true,"Please enter a different email since its already registered."]
     },
-    gender:{
-        type:String,
-        enum:["Male","Female"],
-        default:"Male"
-    },
     password:{
         type:String,
         minlength:8,
