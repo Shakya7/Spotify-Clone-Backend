@@ -94,3 +94,32 @@ exports.logout=async(req,res)=>{
         })
     }
 }
+
+exports.checkCookiePresent=async(req,res)=>{
+    try{
+    let token;
+    if(req.cookies.jwt)
+        token=req.cookies.jwt;
+    if(!token)
+        throw "Cookie not found. User is not logged in"
+    const decoded=jwt.verify(token,process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIRES});
+    const user=await User.findById({_id:decoded.id});
+    if(!user)
+        throw "No user found! Please login first...";
+    res.status(200).json({
+        status:"success",
+        data:{
+            message:"User is logged in",
+            userID:decoded.id
+        }
+    });
+    }catch(err){
+        console.log(err.message);
+        res.status(401).json({
+            status:"failure",
+            data:{
+                message:err.message
+            }
+        });
+    }    
+}

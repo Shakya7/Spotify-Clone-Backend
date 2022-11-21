@@ -11,6 +11,8 @@ router.route("/getAllUsers").get(userController.getAllUsers);
 router.route("/signup").post(authController.signup);
 router.route("/login").post(authController.login);
 router.route("/logout").get(authController.logout);
+router.route("/authenticate").get(authController.checkCookiePresent);
+router.route("/loadProfileDataOnCookiePresent/:id").get(userController.getUserDetailsByID);
 
 
 

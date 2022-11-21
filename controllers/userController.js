@@ -52,3 +52,23 @@ exports.getUser=async (req,res)=>{
         })
     }
 }
+
+exports.getUserDetailsByID=async(req,res)=>{
+    try{
+        const user=await User.findById(req.params.id);
+        if(!user)
+            throw "User is not present with this email! Make sure you have entered the correct email"
+        res.status(200).json({
+            status:"success",
+            data:{
+                user
+            }
+        });
+    }catch(err){
+        console.log(err);
+        res.status(400).json({
+            status:"failed",
+            message:err.message
+        })
+    }
+}
